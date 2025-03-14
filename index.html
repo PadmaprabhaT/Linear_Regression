@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>House Price Predictor</title>
+    <script>
+        async function getPrediction() {
+            let income = document.getElementById("income").value;
+            let response = await fetch("https://your-api-url.onrender.com/predict", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ median_income: parseFloat(income) })
+            });
+
+            let data = await response.json();
+            document.getElementById("result").innerText = "Predicted Price: " + data.predicted_price;
+        }
+    </script>
+</head>
+<body>
+    <h2>Enter Median Income:</h2>
+    <input type="number" id="income" placeholder="Enter income">
+    <button onclick="getPrediction()">Predict</button>
+    <h3 id="result"></h3>
+</body>
+</html>
